@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/store/actions/actionTypes.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1696073087468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1696074896924,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,13 +4,14 @@\n   SET_CONTENT_OF_CONFIRM_MODAL: \"SET_CONTENT_OF_CONFIRM_MODAL\",\r\n \r\n   //admin\r\n   ADMIN_LOGIN_SUCCESS: \"ADMIN_LOGIN_SUCCESS\",\r\n-  ADMIN_LOGIN_FAIL: \"ADMIN_LOGIN_FAIL\",\r\n-  PROCESS_LOGOUT: \"PROCESS_LOGOUT\",\r\n+  \r\n \r\n   //user\r\n   ADD_USER_SUCCESS: \"ADD_USER_SUCCESS\",\r\n   USER_LOGIN_SUSSCESS: \"USER_LOGIN_SUSSCESS\",\r\n+  USER_LOGIN_FAIL: \"ADMIN_LOGIN_FAIL\",\r\n+  PROCESS_LOGOUT: \"PROCESS_LOGOUT\",\r\n });\r\n \r\n export default actionTypes;\r\n"
+                },
+                {
+                    "date": 1696075887408,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   ADMIN_LOGIN_SUCCESS: \"ADMIN_LOGIN_SUCCESS\",\r\n \r\n   //user\r\n   ADD_USER_SUCCESS: \"ADD_USER_SUCCESS\",\r\n-  USER_LOGIN_SUSSCESS: \"USER_LOGIN_SUSSCESS\",\r\n+  USER_LOGIN_SUCCESS: \"USER_LOGIN_SUCCESS\",\r\n   USER_LOGIN_FAIL: \"ADMIN_LOGIN_FAIL\",\r\n   PROCESS_LOGOUT: \"PROCESS_LOGOUT\",\r\n });\r\n \r\n"
+                }
+            ],
+            "date": 1696073087468,
+            "name": "Commit-0",
+            "content": "const actionTypes = Object.freeze({\r\n    //app\r\n    APP_START_UP_COMPLETE: 'APP_START_UP_COMPLETE',\r\n    SET_CONTENT_OF_CONFIRM_MODAL: 'SET_CONTENT_OF_CONFIRM_MODAL',\r\n\r\n    //admin\r\n    ADMIN_LOGIN_SUCCESS: 'ADMIN_LOGIN_SUCCESS',\r\n    ADMIN_LOGIN_FAIL: 'ADMIN_LOGIN_FAIL',\r\n    PROCESS_LOGOUT: 'PROCESS_LOGOUT',\r\n\r\n    //user\r\n    ADD_USER_SUCCESS: 'ADD_USER_SUCCESS',\r\n    USER_LOGIN_SUSSCESS: 'USER_LOGIN_SUSSCESS',\r\n})\r\n\r\nexport default actionTypes;"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/services/adminService.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1696067066037,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1696067279997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import axios from \"../axios\";\r\n import * as queryString from \"query-string\";\r\n \r\n-const adminService = {\r\n+export const adminService = {\r\n   /**\r\n    * Đăng nhập hệ thống\r\n    * {\r\n    *  \"username\": \"string\",\r\n@@ -13,5 +13,4 @@\n     return axios.post(`/admin/login`, loginBody);\r\n   },\r\n };\r\n \r\n-export { adminService };\r\n"
+                },
+                {
+                    "date": 1696067397423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import axios from \"../axios\";\r\n import * as queryString from \"query-string\";\r\n \r\n-export const adminService = {\r\n+ const adminService = {\r\n   /**\r\n    * Đăng nhập hệ thống\r\n    * {\r\n    *  \"username\": \"string\",\r\n@@ -12,4 +12,6 @@\n   login(loginBody) {\r\n     return axios.post(`/admin/login`, loginBody);\r\n   },\r\n };\r\n+\r\n+export default adminService;\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1696067066037,
+            "name": "Commit-0",
+            "content": "import axios from '../axios';\r\nimport * as queryString from 'query-string';\r\n\r\nconst adminService = {\r\n\r\n    /**\r\n     * Đăng nhập hệ thống\r\n     * {\r\n     *  \"username\": \"string\",\r\n     *  \"password\": \"string\"\r\n     * }\r\n     */\r\n    login(loginBody) {\r\n        return axios.post(`/admin/login`, loginBody)\r\n    },\r\n\r\n};\r\n\r\nexport { adminService};"
+        }
+    ]
+}

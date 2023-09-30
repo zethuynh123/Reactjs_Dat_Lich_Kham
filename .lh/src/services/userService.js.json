@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/services/userService.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1696066574381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1696066753969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,4 +2,6 @@\n \r\n const handleLoginApi = async (email, password) => {\r\n   return axios.post(\"/api/login\");\r\n };\r\n+\r\n+export default handleLoginApi;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1696066957168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,5 @@\n const handleLoginApi = async (email, password) => {\r\n   return axios.post(\"/api/login\");\r\n };\r\n \r\n-export default handleLoginApi;\r\n+export { handleLoginApi};\r\n"
+                }
+            ],
+            "date": 1696066574381,
+            "name": "Commit-0",
+            "content": "import axios from \"../axios\"\r\n\r\n\r\nconst handleLoginApi =async(email, password )=> {\r\nreturn axios.post('/api/login')\r\n}"
+        }
+    ]
+}

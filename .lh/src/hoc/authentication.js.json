@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/hoc/authentication.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1696075316550,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1696075316550,
+            "name": "Commit-0",
+            "content": "import locationHelperBuilder from \"redux-auth-wrapper/history4/locationHelper\";\r\nimport { connectedRouterRedirect } from \"redux-auth-wrapper/history4/redirect\";\r\n\r\nconst locationHelper = locationHelperBuilder({});\r\n\r\nexport const userIsAuthenticated = connectedRouterRedirect({\r\n    authenticatedSelector: state => state.user.isLoggedIn,\r\n    wrapperDisplayName: 'UserIsAuthenticated',\r\n    redirectPath: '/login'\r\n});\r\n\r\nexport const userIsNotAuthenticated = connectedRouterRedirect({\r\n    // Want to redirect the user when they are authenticated\r\n    authenticatedSelector: state => !state.user.isLoggedIn,\r\n    wrapperDisplayName: 'UserIsNotAuthenticated',\r\n    redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',\r\n    allowRedirectBack: false\r\n});"
+        }
+    ]
+}
