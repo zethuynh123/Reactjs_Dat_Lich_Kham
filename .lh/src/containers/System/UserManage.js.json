@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/containers/System/UserManage.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1696153237687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1696153330908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,14 @@\n import React, { Component } from \"react\";\r\n import { FormattedMessage } from \"react-intl\";\r\n import { connect } from \"react-redux\";\r\n class UserManage extends Component {\r\n-  state = {};\r\n \r\n+    constructor(props) {\r\n+        super(props);\r\n+        this.state = {}\r\n+    }\r\n+\r\n   componentDidMount() {}\r\n \r\n   render() {\r\n     return <div className=\"text-center\">Manage users aaaa</div>;\r\n"
+                },
+                {
+                    "date": 1696155560347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,43 @@\n \r\n   componentDidMount() {}\r\n \r\n   render() {\r\n-    return <div className=\"text-center\">Manage users aaaa</div>;\r\n+    return <div className=\"container\">\r\n+        <div className=\"\">hehe</div>\r\n+        <table class=\"table caption-top\">\r\n+  <caption>List of users</caption>\r\n+  <thead>\r\n+    <tr>\r\n+      <th scope=\"col\">#</th>\r\n+      <th scope=\"col\">First</th>\r\n+      <th scope=\"col\">Last</th>\r\n+      <th scope=\"col\">Handle</th>\r\n+    </tr>\r\n+  </thead>\r\n+  <tbody>\r\n+    <tr>\r\n+      <th scope=\"row\">1</th>\r\n+      <td>Mark</td>\r\n+      <td>Otto</td>\r\n+      <td>@mdo</td>\r\n+    </tr>\r\n+    <tr>\r\n+      <th scope=\"row\">2</th>\r\n+      <td>Jacob</td>\r\n+      <td>Thornton</td>\r\n+      <td>@fat</td>\r\n+    </tr>\r\n+    <tr>\r\n+      <th scope=\"row\">3</th>\r\n+      <td>Larry</td>\r\n+      <td>the Bird</td>\r\n+      <td>@twitter</td>\r\n+    </tr>\r\n+  </tbody>\r\n+</table>\r\n+\r\n+    </div>;\r\n   }\r\n }\r\n \r\n const mapStateToProps = (state) => {\r\n"
+                }
+            ],
+            "date": 1696153237687,
+            "name": "Commit-0",
+            "content": "import React, { Component } from 'react';\r\nimport { FormattedMessage } from 'react-intl';\r\nimport { connect } from 'react-redux';\r\nclass UserManage extends Component {\r\n\r\n    state = {\r\n\r\n    }\r\n\r\n    componentDidMount() {\r\n\r\n    }\r\n\r\n\r\n    render() {\r\n        return (\r\n            <div className=\"text-center\">Manage users aaaa</div>\r\n        );\r\n    }\r\n\r\n}\r\n\r\nconst mapStateToProps = state => {\r\n    return {\r\n    };\r\n};\r\n\r\nconst mapDispatchToProps = dispatch => {\r\n    return {\r\n    };\r\n};\r\n\r\nexport default connect(mapStateToProps, mapDispatchToProps)(UserManage);\r\n"
+        }
+    ]
+}
