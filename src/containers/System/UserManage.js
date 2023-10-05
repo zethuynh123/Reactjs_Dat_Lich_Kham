@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAllUser, deleteUser } from "../../services/userService";
-import ModalUser from "./ModalUser";
+import ModalAddUser from "./ModalAddUser";
+import ModalEditUser from "./ModalEditUser";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 class UserManage extends Component {
@@ -10,12 +11,19 @@ class UserManage extends Component {
     super(props);
     this.state = {
       dataUSer: [],
-      modal: false,
+      modalAddUser: false,
+      modalEditUser: false,
+      userInfo: "",
     };
   }
 
   handleAddNewUser = () => {
-    this.setState({ modal: true });
+    this.setState({ modalAddUser: true });
+  };
+
+  handleEditUser = (userInfo) => {
+    this.setState({ userInfo });
+    this.setState({ modalEditUser: true });
   };
 
   handleDelete = async (id) => {
@@ -38,8 +46,12 @@ class UserManage extends Component {
     }
   };
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
+  toggle = (nameModal) => {
+    if (nameModal === "add") {
+      this.setState({ modalAddUser: !this.state.modalAddUser });
+    } else {
+      this.setState({ modalEditUser: !this.state.modalEditUser });
+    }
   };
 
   handleGetAllUser = async () => {
@@ -56,10 +68,17 @@ class UserManage extends Component {
   render() {
     return (
       <div className="container">
-        <ModalUser
-          modal={this.state.modal}
-          toggle={this.toggle}
+        <ModalAddUser
+          modal={this.state.modalAddUser}
+          toggle={() => this.toggle("add")}
           getAllUser={this.handleGetAllUser}
+        />
+
+        <ModalEditUser
+          modal={this.state.modalEditUser}
+          toggle={() => this.toggle("edit")}
+          getAllUser={this.handleGetAllUser}
+          data={this.state.userInfo}
         />
         <div className="text-center fs-2 mt-2 fw-bold text-secondary">
           Manage users table
@@ -92,7 +111,10 @@ class UserManage extends Component {
                     <td>{userInfo.lastName}</td>
                     <td>{userInfo.address}</td>
                     <td>
-                      <button className="btn btn-outline-secondary border border-secondary px-2 me-2">
+                      <button
+                        className="btn btn-outline-secondary border border-secondary px-2 me-2"
+                        onClick={() => this.handleEditUser(userInfo)}
+                      >
                         <i className="fas fa-edit fs-6"></i>
                       </button>
                       <button

@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { addNewUser } from "../../services/userService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAllUser } from "../../services/userService";
 import {
   Button,
   Modal,
@@ -19,15 +17,14 @@ import {
   Input,
   Spinner,
 } from "reactstrap";
-import "./ModalUser.scss";
+import "./ModalAddUser.scss";
 
-class ModalUser extends Component {
+class ModalAddUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       toastId: null,
       isLoading: false,
-      modal: false,
       email: "",
       password: "",
       firstName: "",
@@ -163,7 +160,6 @@ class ModalUser extends Component {
         centered
         size="lg"
         className="modal-create-user"
-        {...this.props}
       >
         <ModalHeader
           className="text-secondary py-4 px-3"
@@ -313,13 +309,12 @@ class ModalUser extends Component {
                         name="roleId"
                         type="select"
                         placeholder="Role"
+                        defaultValue={"1"}
                         onChange={(e) =>
                           this.setState({ roleId: e.target.value })
                         }
                       >
-                        <option selected value="1">
-                          Admin
-                        </option>
+                        <option value="1">Admin</option>
                         <option value="2">Doctor</option>
                         <option value="3">Patient</option>
                       </Input>
@@ -367,4 +362,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalAddUser);

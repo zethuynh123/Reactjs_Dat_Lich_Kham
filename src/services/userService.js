@@ -27,9 +27,15 @@ const addNewUser = async (data) => {
   return result.data;
 };
 
+const editUser = async (data) => {
+  let result = await axios.put("/api/edit-user", data);
+  return result.data;
+};
+
 const deleteUser = async (id) => {
   let params = { id };
   let result = await axios.delete("/api/delete-user", { params });
   return result.data;
 };
-export { handleLoginApi, getAllUser, addNewUser, deleteUser };
+
+export { handleLoginApi, getAllUser, addNewUser, deleteUser, editUser };
