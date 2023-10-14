@@ -17,16 +17,14 @@ class About extends Component {
               height="400px"
               src="https://www.youtube.com/embed/Hx0s-ymgBVk"
               title="Cách Học Lâu Không Mệt"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <div className="content-right">
-            <p>
-              <div className="text-center fs-4 fw-bold">
-                Cách Học Lâu Không Mệt
-              </div>{" "}
+            <div>
+              <p className="text-center fs-4 fw-bold">Cách Học Lâu Không Mệt</p>{" "}
               <br />
               Xin kính chào quý vị và các bạn, chào mừng tất cả quý vị và các
               bạn đã đến với bài học tâm huyết được phát sóng hàng tuần tối thứ
@@ -40,7 +38,7 @@ class About extends Component {
               học tập, làm việc và kinh nghiệm thực tế của tui, hôm nay tui sẽ
               đem đến cho quý vị và các bạn cách để chúng ta học tập và làm việc
               trong một thời gian dài mà không cảm thấy mệt.
-            </p>
+            </div>
           </div>
         </div>
       </div>

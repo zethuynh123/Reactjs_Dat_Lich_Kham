@@ -32,6 +32,10 @@
   }
 }
 
+.slick-disabled {
+  display: none !important;
+}
+
 .section-share {
   border-bottom: 3px solid #efeef5;
 
@@ -77,8 +81,8 @@
         }
 
         &.section-outstanding-doctor {
-          background-image: url("../../assets/doctor/img4.jpg");
-          background-size: contain;
+          // background-image: url("../../assets/doctor/img4.jpg");
+          background-size: cover;
           height: 120px;
           width: 120px;
           border-radius: 50%;
@@ -177,7 +181,7 @@
     .content-right {
       width: 40%;
 
-      p {
+      div {
         text-align: justify;
         font-style: italic;
         padding: 15px;

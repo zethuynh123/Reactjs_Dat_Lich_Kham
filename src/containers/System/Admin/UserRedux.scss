@@ -1,0 +1,24 @@
+.label-upload {
+  padding: 5px;
+  border-radius: 3px;
+  background: #ddd;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.preview-image {
+  border: 1px solid #ced4da;
+  height: 70px;
+  width: 60%;
+  position: relative;
+
+  .preImage-close-icon {
+    position: absolute;
+    right: 0.5rem;
+    color: #707171;
+    cursor: pointer;
+  }
+}

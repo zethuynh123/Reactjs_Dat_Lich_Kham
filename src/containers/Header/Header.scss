@@ -1,23 +1,91 @@
 @import "../../styles/common.scss";
 
 .header-container {
-    z-index: 99;
-    display: flex;
-    justify-content: space-between;
-    background-color: $colormain;
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  background-color: $colormain;
+  color: $common-text-color;
+  height: 40px;
+  position: relative;
+  .btn-logout {
     color: $common-text-color;
+    line-height: 40px;
     height: 40px;
-    position: relative;
-    .btn-logout {
-        color: $common-text-color;
-        line-height: 40px;
-        height: 40px;
-        padding: 0 10px;
-        &:hover {
-            background-color: darken($colormain, 5);
-        }
-        i {
-            font-size: $base-size + 1px;
-        }
+    padding: 0 10px;
+    &:hover {
+      background-color: darken($colormain, 5);
     }
+    i {
+      font-size: $base-size + 1px;
+    }
+  }
+
+  .languages {
+    .language-en {
+      margin-right: 15px;
+      margin-left: 5px;
+    }
+
+    .language-vi,
+    .language-en {
+      cursor: pointer;
+    }
+
+    .language-vi {
+      text-decoration: none;
+      position: relative;
+      opacity: 0.2;
+
+      &.active {
+        color: #f7d800;
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active::after {
+        position: absolute;
+        color: #f7d800 !important;
+        content: "";
+        height: 3px;
+        bottom: -2px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #45c3d2;
+      }
+    }
+
+    .language-en {
+      text-decoration: none;
+      position: relative;
+      opacity: 0.2;
+
+      &.active {
+        color: #f7d800;
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active::after {
+        position: absolute;
+
+        content: "";
+        height: 3px;
+        bottom: -2px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #45c3d2;
+      }
+    }
+  }
 }

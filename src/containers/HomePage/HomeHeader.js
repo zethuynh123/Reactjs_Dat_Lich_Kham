@@ -7,7 +7,6 @@ import { changeLanguageWeb } from "../../store/actions/appActions";
 
 class HomeHeader extends Component {
   handleChangeLanguage = (language) => {
-    console.log("aaa", language);
     this.props.changeLanguageWeb(language);
   };
 
@@ -130,7 +129,7 @@ class HomeHeader extends Component {
               </div>
               <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
                 <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i class="fas fa-notes-medical"></i>
+                  <i className="fas fa-notes-medical"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="home_header.examination_3" />
@@ -140,7 +139,7 @@ class HomeHeader extends Component {
               </div>
               <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
                 <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i class="fas fa-vial"></i>
+                  <i className="fas fa-vial"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="home_header.tests" />
@@ -150,7 +149,7 @@ class HomeHeader extends Component {
               </div>
               <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
                 <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i class="fas fa-heartbeat"></i>
+                  <i className="fas fa-heartbeat"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="home_header.health" />
@@ -160,7 +159,7 @@ class HomeHeader extends Component {
               </div>
               <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
                 <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i class="far fa-smile"></i>
+                  <i className="far fa-smile"></i>
                 </div>
                 <div className="text-child">
                   <FormattedMessage id="home_header.examination_4" />
