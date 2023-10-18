@@ -3,10 +3,14 @@ import actionTypes from "../actions/actionTypes";
 const initialState = {
   genders: [],
   positions: [],
+  timeData: [],
   roles: [],
   users: [],
   topDoctors: [],
+  allDoctors: [],
+  DetailInfoDoctors: [],
   dataAddUser: null,
+  saveInfoDoctor: null,
   isLoadingGenders: false,
   isLoadingPositions: false,
   isLoadingRoles: false,
@@ -49,6 +53,21 @@ const appReducer = (state = initialState, action) => {
         ...state,
         positions: null,
         isLoadingPositions: true,
+      };
+    case actionTypes.FETCH_ALLCODE_SCHEDULE_HOURS_START:
+      return {
+        ...state,
+        timeData: [],
+      };
+    case actionTypes.FETCH_ALLCODE_SCHEDULE_HOURS_SUCCESS:
+      return {
+        ...state,
+        timeData: action.payload.data,
+      };
+    case actionTypes.FETCH_ALLCODE_SCHEDULE_HOURS_FAIL:
+      return {
+        ...state,
+        timeData: [],
       };
     case actionTypes.FETCH_ROLE_START:
       return {
@@ -98,20 +117,6 @@ const appReducer = (state = initialState, action) => {
         ...state,
         message: action.payload.message,
       };
-    case actionTypes.DELETE_USER_START:
-      return {
-        ...state,
-      };
-    case actionTypes.DELETE_USER_SUCCESS:
-      return {
-        ...state,
-        message: action.payload.message,
-      };
-    case actionTypes.DELETE_USER_FAIL:
-      return {
-        ...state,
-        message: action.payload.message,
-      };
     case actionTypes.FETCH_TOP_DOCTOR_START:
       return {
         ...state,
@@ -125,6 +130,34 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         topDoctors: [],
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_START:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+      return {
+        ...state,
+        allDoctors: action.payload.data,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_FAIL:
+      return {
+        ...state,
+        allDoctors: [],
+      };
+    case actionTypes.GET_DETAIL_DOCTOR_START:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_DETAIL_DOCTOR_SUCCESS:
+      return {
+        ...state,
+        DetailInfoDoctors: action.payload.data,
+      };
+    case actionTypes.GET_DETAIL_DOCTOR_FAIL:
+      return {
+        ...state,
+        DetailInfoDoctors: [],
       };
     default:
       return state;

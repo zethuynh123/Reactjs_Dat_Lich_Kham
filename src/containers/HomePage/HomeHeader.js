@@ -4,6 +4,7 @@ import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageWeb } from "../../store/actions/appActions";
+import { withRouter } from "react-router";
 
 class HomeHeader extends Component {
   handleChangeLanguage = (language) => {
@@ -17,7 +18,10 @@ class HomeHeader extends Component {
           <div className="home-header-content">
             <div className="left-content d-flex align-items-center justify-content-center">
               <i className="fas fa-bars fs-3 text-secondary"></i>
-              <div className="header-logo"></div>
+              <div
+                className="header-logo"
+                onClick={() => this.props.history.push("/home")}
+              ></div>
             </div>
             <div className="center-content d-flex justify-content-between align-items-center">
               <div className="child-content">
@@ -86,90 +90,92 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="home-header-banner d-flex flex-column">
-          <div className="content-up">
-            <div className="title-first">
-              {" "}
-              <FormattedMessage id="home_header.medical_foundation" />
+        {this.props.isShowBanner && (
+          <div className="home-header-banner d-flex flex-column">
+            <div className="content-up">
+              <div className="title-first">
+                {" "}
+                <FormattedMessage id="home_header.medical_foundation" />
+              </div>
+              <div className="title-second">
+                {" "}
+                <FormattedMessage id="home_header.COMPREHENSIVE_HEALTH_CARE" />
+              </div>
+              <div className="search">
+                <i className="fas fa-search"></i>
+                <FormattedMessage id="home_header.search_hospital">
+                  {(placeholder) => (
+                    <input type="text" placeholder={placeholder} />
+                  )}
+                </FormattedMessage>
+              </div>
             </div>
-            <div className="title-second">
-              {" "}
-              <FormattedMessage id="home_header.COMPREHENSIVE_HEALTH_CARE" />
-            </div>
-            <div className="search">
-              <i className="fas fa-search"></i>
-              <FormattedMessage id="home_header.search_hospital">
-                {(placeholder) => (
-                  <input type="text" placeholder={placeholder} />
-                )}
-              </FormattedMessage>
+            <div className="content-down d-flex justify-content-center">
+              <div className="options d-flex justify-content-center align-content-end">
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5 d">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="far fa-hospital"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.examination" />
+                    <br />
+                    <FormattedMessage id="home_header.speciality_lower" />
+                  </div>
+                </div>
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="fas fa-mobile-alt"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.examination_2" />
+                    <br />
+                    <FormattedMessage id="home_header.remote" />
+                  </div>
+                </div>
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="fas fa-notes-medical"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.examination_3" />
+                    <br />
+                    <FormattedMessage id="home_header.general" />
+                  </div>
+                </div>
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="fas fa-vial"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.tests" />
+                    <br />
+                    <FormattedMessage id="home_header.medical" />
+                  </div>
+                </div>
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="fas fa-heartbeat"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.health" />
+                    <br />
+                    <FormattedMessage id="home_header.mental" />
+                  </div>
+                </div>
+                <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
+                  <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
+                    <i className="far fa-smile"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="home_header.examination_4" />
+                    <br />
+                    <FormattedMessage id="home_header.dental" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="content-down d-flex justify-content-center">
-            <div className="options d-flex justify-content-center align-content-end">
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5 d">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="far fa-hospital"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.examination" />
-                  <br />
-                  <FormattedMessage id="home_header.speciality_lower" />
-                </div>
-              </div>
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="fas fa-mobile-alt"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.examination_2" />
-                  <br />
-                  <FormattedMessage id="home_header.remote" />
-                </div>
-              </div>
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="fas fa-notes-medical"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.examination_3" />
-                  <br />
-                  <FormattedMessage id="home_header.general" />
-                </div>
-              </div>
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="fas fa-vial"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.tests" />
-                  <br />
-                  <FormattedMessage id="home_header.medical" />
-                </div>
-              </div>
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="fas fa-heartbeat"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.health" />
-                  <br />
-                  <FormattedMessage id="home_header.mental" />
-                </div>
-              </div>
-              <div className="option-child d-flex justify-content-end align-items-center flex-column mx-5">
-                <div className="icon-child d-flex justify-content-center align-items-center p-2 bg-white rounded-circle">
-                  <i className="far fa-smile"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="home_header.examination_4" />
-                  <br />
-                  <FormattedMessage id="home_header.dental" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </>
     );
   }
@@ -188,4 +194,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);

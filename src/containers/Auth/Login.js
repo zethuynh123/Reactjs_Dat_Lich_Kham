@@ -60,35 +60,16 @@ class Login extends Component {
       const { data } = await handleLoginApi(username, password);
       if (data.status === 200) {
         userLoginSusscess(data.dataUser);
+        this.redirectToSystemPage();
       }
     } catch (error) {
       if (error.response.data) {
         this.setState({ errMessage: error.response.data.message });
       }
     }
-    // let loginBody = {
-    //   username: "admin",
-    //   password: "123456",
-    // };
-    // //sucess
-    // let adminInfo = {
-    //   tlid: "0",
-    //   tlfullname: "Administrator",
-    //   custype: "A",
-    //   accessToken: "eyJhbGciOiJIU",
-    // };
-
-    // adminLoginSuccess(adminInfo);
-    // this.refresh();
-    // this.redirectToSystemPage();
-    // try {
-    //   adminService.login(loginBody);
-    // } catch (e) {
-    //   console.log("error login : ", e);
-    // }
   };
 
-  handlerKeyDown = (event) => {
+  handleKeyDown = (event) => {
     const keyCode = event.which || event.keyCode;
     if (keyCode === KeyCodeUtils.ENTER) {
       event.preventDefault();
@@ -102,11 +83,11 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handlerKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handlerKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
     // fix Warning: Can't perform a React state update on an unmounted component
     this.setState = (state, callback) => {
       return;
@@ -114,7 +95,7 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password, loginError } = this.state;
+    const { username, password } = this.state;
     const { lang } = this.props;
     return (
       <div className="login-wrapper">

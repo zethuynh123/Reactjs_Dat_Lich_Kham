@@ -50,6 +50,23 @@ const fetchTopDoctorService = async (limit) => {
   return result.data;
 };
 
+const fetchAllDoctorService = async () => {
+  let result = await axios.get("/api/all-doctor", {});
+  return result.data;
+};
+
+const saveDetailDoctorService = async (data) => {
+  let result = await axios.post("/api/save-info-doctor", data);
+  return result.data;
+};
+
+const getDetailDoctorService = async (id) => {
+  let result = await axios.get("/api/get-detail-doctor-by-id", {
+    params: { id },
+  });
+  return result.data;
+};
+
 export {
   handleLoginApi,
   getAllUser,
@@ -58,4 +75,7 @@ export {
   editUser,
   getAllCodeService,
   fetchTopDoctorService,
+  fetchAllDoctorService,
+  saveDetailDoctorService,
+  getDetailDoctorService,
 };
