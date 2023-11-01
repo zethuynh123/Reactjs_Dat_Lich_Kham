@@ -31,6 +31,20 @@
     }
   }
 
+  .schedule-doctor {
+    margin: 0 150px;
+    display: flex;
+    min-height: 200px;
+
+    .content-left {
+      width: 55%;
+    }
+
+    .content-right {
+      width: 45%;
+    }
+  }
+
   .detail-info-doctor {
     .wrapper-info-doctor {
       border-top: 1px solid #ccc;

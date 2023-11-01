@@ -67,6 +67,25 @@ const getDetailDoctorService = async (id) => {
   return result.data;
 };
 
+const saveBulkSchedule = async (data) => {
+  let result = await axios.post("/api/bulk-schedule", data);
+  return result.data;
+};
+
+const getScheduleDoctorByDate = async (doctorId, date) => {
+  let result = await axios.get("/api/get-schedule-doctor-by-date", {
+    params: { doctorId, date },
+  });
+  return result.data;
+};
+
+const getExtraInfoDoctorByIdService = async (doctorId) => {
+  let result = await axios.get("/api/get-extra-info-doctor-by-id", {
+    params: { doctorId },
+  });
+  return result.data;
+};
+
 export {
   handleLoginApi,
   getAllUser,
@@ -78,4 +97,7 @@ export {
   fetchAllDoctorService,
   saveDetailDoctorService,
   getDetailDoctorService,
+  saveBulkSchedule,
+  getScheduleDoctorByDate,
+  getExtraInfoDoctorByIdService,
 };

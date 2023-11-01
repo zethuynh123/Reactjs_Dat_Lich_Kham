@@ -4,6 +4,8 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import { getDetailDoctorStart } from "../../../store/actions/adminActions";
 import { LANGUAGES } from "../../../utils";
 import _ from "lodash";
+import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfo from "./DoctorExtraInfo";
 import "./DetailDoctor.scss";
 
 class DetailDoctor extends Component {
@@ -14,11 +16,7 @@ class DetailDoctor extends Component {
     };
   }
   async componentDidMount() {
-    if (
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.id
-    ) {
+    if (this.props?.match?.params?.id) {
       let id = this.props.match.params.id;
       await this.props.getDetailDoctorStart(id);
     }
@@ -31,7 +29,6 @@ class DetailDoctor extends Component {
   }
 
   render() {
-    console.log(this.state.DetailInfoDoctors);
     const { DetailInfoDoctors } = this.state;
     const { language } = this.props;
     let nameVi = "",
@@ -67,7 +64,17 @@ class DetailDoctor extends Component {
                 </div>
               </div>
             </div>
-            <div className="schedule-doctor"></div>
+            <div className="schedule-doctor">
+              <div className="content-left">
+                <DoctorSchedule
+                  doctorId={this.props?.match?.params?.id}
+                  detailInfoDoctors={DetailInfoDoctors}
+                />
+              </div>
+              <div className="content-right">
+                <DoctorExtraInfo doctorId={this.props?.match?.params?.id} />
+              </div>
+            </div>
             <div className="detail-info-doctor">
               {DetailInfoDoctors.Markdown &&
                 DetailInfoDoctors.Markdown.contentHTML && (

@@ -21,7 +21,6 @@ class Header extends Component {
   componentDidMount() {
     let { userInfo } = this.props;
     if (userInfo && !_.isEmpty(userInfo)) {
-      console.log("userInfo", userInfo);
       let roleId = userInfo.roleId;
       if (roleId === USER_ROLE.ADMIN) {
         this.setState({ menuApp: adminMenu });
@@ -39,7 +38,6 @@ class Header extends Component {
   render() {
     const { processLogout, language, userInfo } = this.props;
     const { menuApp } = this.state;
-    console.log(menuApp);
 
     return (
       <div className="header-container">

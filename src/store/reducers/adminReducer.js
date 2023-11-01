@@ -9,8 +9,14 @@ const initialState = {
   topDoctors: [],
   allDoctors: [],
   DetailInfoDoctors: [],
+  ScheduleByDate: [],
+  price: [],
+  methodPayment: [],
+  province: [],
+  InfoDoctorById: [],
   dataAddUser: null,
   saveInfoDoctor: null,
+  saveScheduleHours: null,
   isLoadingGenders: false,
   isLoadingPositions: false,
   isLoadingRoles: false,
@@ -158,6 +164,76 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         DetailInfoDoctors: [],
+      };
+    case actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_START:
+      return {
+        ...state,
+      };
+    case actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_SUCCESS:
+      return {
+        ...state,
+        saveScheduleHours: action.payload.data,
+      };
+    case actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_FAIL:
+      return {
+        ...state,
+        saveScheduleHours: null,
+      };
+    case actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_START:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_SUCCESS:
+      return {
+        ...state,
+        ScheduleByDate: action.payload,
+      };
+    case actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_FAIL:
+      return {
+        ...state,
+        ScheduleByDate: null,
+      };
+    case actionTypes.FETCH_ALLCODE_START:
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALLCODE_SUCCESS:
+      if (action.payload[0].type === "PRICE") {
+        return {
+          ...state,
+          price: action.payload,
+        };
+      }
+      if (action.payload[0].type === "PAYMENT") {
+        return {
+          ...state,
+          methodPayment: action.payload,
+        };
+      } else {
+        return {
+          ...state,
+          province: action.payload,
+        };
+      }
+    case actionTypes.FETCH_ALLCODE_FAIL:
+      return {
+        ...state,
+        allCodeData: null,
+      };
+    case actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_START:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_SUCCESS:
+      return {
+        ...state,
+        InfoDoctorById: action.payload.data,
+      };
+
+    case actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_FAIL:
+      return {
+        ...state,
+        InfoDoctorById: [],
       };
     default:
       return state;
