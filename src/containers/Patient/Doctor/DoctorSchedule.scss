@@ -1,0 +1,31 @@
+.doctor-schedule-container {
+  border-right: 2px solid #45c3d2;
+  height: 100%;
+
+  .all-schedule {
+    select {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #45c3d2;
+      padding: 10px 0;
+      cursor: pointer;
+      color: #337ab7;
+      font-weight: 600;
+    }
+  }
+
+  .all-available-time {
+    .time-content {
+      button {
+        min-width: 137px;
+        background-color: #fff04b;
+        color: #333;
+
+        &:hover {
+          color: #fff;
+          background-color: #45c3d2;
+        }
+      }
+    }
+  }
+}

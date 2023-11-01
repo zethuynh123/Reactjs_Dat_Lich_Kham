@@ -1,0 +1,34 @@
+.extra-info-container {
+  .content-up {
+    border-bottom: 1px solid #ddd;
+    .address-title {
+      color: #666685;
+    }
+  }
+
+  .content-down {
+    .price-exam {
+      color: #666685;
+    }
+    .show-detail {
+      color: #45c3d2;
+      cursor: pointer;
+    }
+    .price-wrapper {
+      background-color: #f8f8f8;
+
+      .text-price {
+        color: #666;
+      }
+
+      .text-note {
+        font-size: 12px;
+        font-style: italic;
+      }
+    }
+
+    .method-payment {
+      background-color: #eee;
+    }
+  }
+}

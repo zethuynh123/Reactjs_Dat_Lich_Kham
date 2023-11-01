@@ -9,6 +9,9 @@ import {
   fetchAllDoctorService,
   saveDetailDoctorService,
   getDetailDoctorService,
+  saveBulkSchedule,
+  getScheduleDoctorByDate,
+  getExtraInfoDoctorByIdService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +38,33 @@ export const fetchGenderSuccess = (payload) => ({
 });
 export const fetchGenderFailed = () => ({
   type: actionTypes.FETCH_GENDER_FAILED,
+});
+
+//fetch allcode by type
+
+export const fetchAllCodeStart = (type) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.FETCH_ALLCODE_START });
+      let res = await getAllCodeService(type);
+      if (res.status === 200) {
+        dispatch(fetchAllCodeSuccess(res.data));
+      } else {
+        dispatch(fetchAllCodeFailed());
+      }
+    } catch (error) {
+      dispatch(fetchAllCodeFailed());
+    }
+  };
+};
+
+export const fetchAllCodeSuccess = (payload) => ({
+  type: actionTypes.FETCH_ALLCODE_SUCCESS,
+  payload,
+});
+
+export const fetchAllCodeFailed = () => ({
+  type: actionTypes.FETCH_ALLCODE_FAILED,
 });
 
 //role
@@ -285,29 +315,14 @@ export const saveDetailDoctorStart = (data) => {
       dispatch({ type: actionTypes.SAVE_DETAIL_DOCTOR_START });
       let res = await saveDetailDoctorService(data);
       if (res.status === 200) {
-        toast.success(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
-          closeOnClick: true,
-          closeButton: false,
-        });
+        toast.success(res.message);
       } else {
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
-          closeOnClick: true,
-          closeButton: false,
-        });
+        toast.error(res.message);
       }
     } catch (error) {
       console.log(error);
       dispatch(saveDetailDoctorFailed(error));
-      toast.error(error, {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-        closeOnClick: true,
-        closeButton: false,
-      });
+      // toast.error(error.response.data.message);
     }
   };
 };
@@ -374,5 +389,91 @@ export const fetchAllScheduleHoursSuccess = (payload) => ({
 
 export const fetchAllScheduleHoursFailed = (payload) => ({
   type: actionTypes.FETCH_ALLCODE_SCHEDULE_HOURS_FAIL,
+  payload,
+});
+
+//save schedule hours
+export const saveScheduleHoursStart = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_START });
+      let res = await saveBulkSchedule(data);
+      if (res.status === 200) {
+        dispatch(saveScheduleHoursSuccess(res));
+        toast.success(res.message);
+      } else {
+        dispatch(saveScheduleHoursFailed(res));
+        toast.error(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(saveScheduleHoursFailed(error));
+      toast.error(error);
+    }
+  };
+};
+
+export const saveScheduleHoursSuccess = (payload) => ({
+  type: actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_SUCCESS,
+  payload,
+});
+
+export const saveScheduleHoursFailed = (payload) => ({
+  type: actionTypes.SAVE_ALLCODE_SCHEDULE_HOURS_FAIL,
+  payload,
+});
+
+//get schedule hours
+export const getScheduleDoctorByDateStart = (doctorId, date) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_START });
+      let res = await getScheduleDoctorByDate(doctorId, date);
+      if (res.status === 200) {
+        dispatch(getScheduleDoctorByDateSuccess(res));
+      } else {
+        dispatch(getScheduleDoctorByDateFailed(res));
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(getScheduleDoctorByDateFailed(error));
+    }
+  };
+};
+
+export const getScheduleDoctorByDateSuccess = (payload) => ({
+  type: actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_SUCCESS,
+  payload,
+});
+
+export const getScheduleDoctorByDateFailed = (payload) => ({
+  type: actionTypes.GET_SCHEDULE_DOCTOR_BY_DATE_FAIL,
+  payload,
+});
+
+//get extra info doctor by id
+export const getExtraInfoDoctorByIdStart = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_START });
+      let res = await getExtraInfoDoctorByIdService(id);
+      if (res.status === 200) {
+        dispatch(getExtraInfoDoctorByIdSuccess(res));
+      } else {
+        dispatch(getExtraInfoDoctorByIdFailed(res));
+      }
+    } catch (error) {
+      dispatch(getExtraInfoDoctorByIdFailed(error));
+    }
+  };
+};
+
+export const getExtraInfoDoctorByIdSuccess = (payload) => ({
+  type: actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_SUCCESS,
+  payload,
+});
+
+export const getExtraInfoDoctorByIdFailed = (payload) => ({
+  type: actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_FAIL,
   payload,
 });

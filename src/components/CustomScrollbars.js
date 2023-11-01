@@ -85,9 +85,9 @@ class CustomScrollbars extends Component {
     return (
       <Scrollbars
         ref={this.ref}
-        autoHide={false}
+        autoHide={true}
         // autoHideTimeout={200}
-        hideTracksWhenNotNeeded={false}
+        // hideTracksWhenNotNeeded={true}
         className={
           className ? className + " custom-scrollbar" : "custom-scrollbar"
         }

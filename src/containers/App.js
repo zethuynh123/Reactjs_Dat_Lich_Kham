@@ -75,13 +75,14 @@ class App extends Component {
               className="toast-container"
               toastClassName="toast-item"
               bodyClassName="toast-item-body"
-              autoClose={false}
+              autoClose={2000}
               hideProgressBar={true}
-              pauseOnHover={false}
+              pauseOnHover={true}
               pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
+              closeOnClick={true}
+              draggable={true}
+              // closeButton={<CustomToastCloseButton />}
+              closeButton={false}
             />
           </div>
         </Router>

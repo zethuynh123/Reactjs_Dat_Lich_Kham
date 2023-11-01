@@ -57,7 +57,6 @@ class OutStandingDoctor extends Component {
                     );
                   }
                   if (index === 0) {
-                    console.log(doctor);
                   }
                   let nameVi = `${doctor.positionData.valueVi}, ${doctor.lastName} ${doctor.firstName}`;
                   let nameEn = `${doctor.positionData.valueEn}, ${doctor.firstName} ${doctor.lastName}`;
