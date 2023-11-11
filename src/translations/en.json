@@ -103,7 +103,9 @@
   },
   "homepage": {
     "out-standing-doctor": "Doctor featured last week",
-    "search": "Search"
+    "search": "Search",
+    "see_more": "See more",
+    "popular_specialties": "Popular Specialties"
   },
   "manage-schedule": {
     "title": "Manage doctor's medical examination plans",
@@ -125,6 +127,20 @@
       "show_detail": "See details",
       "hide_price_list": "Hide price list",
       "method_payment": "The clinic accepts payment by"
+    },
+    "booking_modal": {
+      "title": "Information on scheduling medical examinations",
+      "full_name": "Full name",
+      "phone_number": "Phone number",
+      "address": "Address",
+      "email": "Email",
+      "reason": "Reason",
+      "birth_day": "Birthday",
+      "sex": "Gender",
+      "comfirm": "Comfirm",
+      "cancel": "Cancel",
+      "free_booking": "Free booking",
+      "price_examination": "Examination price"
     }
   },
   "admin": {
@@ -137,9 +153,24 @@
       "choose_price": "Choose price",
       "choose_method": "Select a payment method",
       "choose_province": "Select a province",
+      "choose_clinic": "Select a specialties",
+      "choose_clinic": "Chọn phòng khám",
       "name_clinic": "Name of clinic",
       "address_clinic": "Address of clinic",
       "note": "Note"
+    },
+    "manage_specialty": {
+      "title": "Specialty management",
+      "name_specialty": "Specialty name",
+      "image_specialty": "Specialty image",
+      "add": "Add specialty"
+    },
+    "manage_clinic": {
+      "title": "Clinic management",
+      "name_clinic": "Clinic name",
+      "address_clinic": "Clinic address",
+      "image_clinic": "Clinic image",
+      "add": "Add clinic"
     }
   }
 }

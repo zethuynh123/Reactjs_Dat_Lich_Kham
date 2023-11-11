@@ -86,6 +86,50 @@ const getExtraInfoDoctorByIdService = async (doctorId) => {
   return result.data;
 };
 
+const bookAppointmentService = async (data) => {
+  let result = await axios.post("/api/patient-book-appointment", data);
+  return result.data;
+};
+
+const verifyEmailBooking = async (data) => {
+  let result = await axios.post("/api/verify-booking-appointment", data);
+  return result.data;
+};
+
+const createNewSpecialty = async (data) => {
+  let result = await axios.post("/api/create-new-specialty", data);
+  return result.data;
+};
+
+const getAllSpecialtyService = async () => {
+  let result = await axios.get("/api/get-all-specialty", {});
+  return result.data;
+};
+
+const getDetailSpecialtyByIdService = async (id, location) => {
+  let result = await axios.get("/api/get-detail-specialty-by-id", {
+    params: { id, location },
+  });
+  return result.data;
+};
+
+const createNewClinic = async (data) => {
+  let result = await axios.post("/api/create-new-clinic", data);
+  return result.data;
+};
+
+const getAllClinicService = async () => {
+  let result = await axios.get("/api/get-all-clinic", {});
+  return result.data;
+};
+
+const getDetailClinicByIdService = async (id, location) => {
+  let result = await axios.get("/api/get-detail-clinic-by-id", {
+    params: { id, location },
+  });
+  return result.data;
+};
+
 export {
   handleLoginApi,
   getAllUser,
@@ -100,4 +144,12 @@ export {
   saveBulkSchedule,
   getScheduleDoctorByDate,
   getExtraInfoDoctorByIdService,
+  bookAppointmentService,
+  verifyEmailBooking,
+  createNewSpecialty,
+  getAllSpecialtyService,
+  getDetailSpecialtyByIdService,
+  createNewClinic,
+  getAllClinicService,
+  getDetailClinicByIdService,
 };

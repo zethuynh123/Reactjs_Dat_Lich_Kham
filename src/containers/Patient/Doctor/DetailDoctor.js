@@ -71,7 +71,7 @@ class DetailDoctor extends Component {
                   detailInfoDoctors={DetailInfoDoctors}
                 />
               </div>
-              <div className="content-right">
+              <div className="content-right ps-4 pb-4">
                 <DoctorExtraInfo doctorId={this.props?.match?.params?.id} />
               </div>
             </div>

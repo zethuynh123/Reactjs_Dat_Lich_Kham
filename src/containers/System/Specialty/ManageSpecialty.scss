@@ -1,0 +1,44 @@
+.manage-specialty-container {
+  .manage-specialty-editor {
+    .info-specialty {
+      .content-left {
+        width: 50%;
+      }
+
+      .content-right {
+        width: 50%;
+        .name {
+          width: 15%;
+
+          .label-upload {
+            padding: 5px;
+            border-radius: 3px;
+            background: #ddd;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+
+            i {
+              margin-left: 5px;
+            }
+          }
+        }
+        .preview-image-wrapper {
+          width: 85%;
+
+          .preview-image {
+            border: 1px solid #ced4da;
+            height: 70px;
+
+            .preImage-close-icon {
+              position: absolute;
+              right: 0.5rem;
+              color: #707171;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

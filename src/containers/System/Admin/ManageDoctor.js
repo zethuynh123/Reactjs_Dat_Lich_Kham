@@ -11,6 +11,7 @@ import {
   saveDetailDoctorStart,
   getDetailDoctorStart,
   fetchAllCodeStart,
+  getAllSpecialtyStart,
 } from "../../../store/actions/adminActions";
 import "react-toastify/dist/ReactToastify.css";
 import MarkdownIt from "markdown-it";
@@ -37,9 +38,13 @@ class ManageDoctor extends Component {
       listPrice: [],
       listMethodPayment: [],
       listProvince: [],
+      listSpecialty: [],
+      listClinic: [],
       selectedPrice: "",
       selectedMethod: "",
       selectedProvince: "",
+      selectedClinic: "",
+      selectedSpecialty: "",
       nameClinic: "",
       addressClinic: "",
       note: "",
@@ -51,6 +56,7 @@ class ManageDoctor extends Component {
     this.props.fetchAllCodeStart("PRICE");
     this.props.fetchAllCodeStart("PROVINCE");
     this.props.fetchAllCodeStart("PAYMENT");
+    this.props.getAllSpecialtyStart();
   }
 
   componentDidUpdate(prevProps) {
@@ -101,6 +107,14 @@ class ManageDoctor extends Component {
         this.setState({ listProvince });
       }
     }
+    if (prevProps.allSpecialty !== this.props.allSpecialty) {
+      let listSpecialty = this.handleConvertSpecialtyToOptionsSelect(
+        this.props.allSpecialty
+      );
+      if (listSpecialty && listSpecialty.length > 0) {
+        this.setState({ listSpecialty });
+      }
+    }
 
     if (prevProps.saveInfoDoctor !== this.props.saveInfoDoctor) {
       if (this.props.saveInfoDoctor.status === 200) {
@@ -111,7 +125,8 @@ class ManageDoctor extends Component {
       prevProps.DetailInfoDoctors !== this.props.DetailInfoDoctors ||
       prevProps.language !== this.props.language
     ) {
-      const { listProvince, listPrice, listMethodPayment } = this.state;
+      const { listProvince, listPrice, listMethodPayment, listSpecialty } =
+        this.state;
       if (this.props.DetailInfoDoctors.Markdown) {
         if (this.props.DetailInfoDoctors.Doctor_Infor) {
           this.setState({
@@ -129,6 +144,11 @@ class ManageDoctor extends Component {
                 item.value ===
                 this.props.DetailInfoDoctors.Doctor_Infor.provinceId
             ),
+            selectedSpecialty: listSpecialty.find(
+              (item) =>
+                item.value ===
+                this.props.DetailInfoDoctors.Doctor_Infor.specialtyId
+            ),
             nameClinic: this.props.DetailInfoDoctors.Doctor_Infor.nameClinic,
             addressClinic:
               this.props.DetailInfoDoctors.Doctor_Infor.addressClinic,
@@ -142,6 +162,7 @@ class ManageDoctor extends Component {
             selectedPrice: "",
             selectedMethod: "",
             selectedProvince: "",
+            selectedSpecialty: "",
           });
         }
         this.setState({
@@ -173,6 +194,7 @@ class ManageDoctor extends Component {
       note: "",
       selectedPrice: "",
       selectedMethod: "",
+      selectedSpecialty: "",
       selectedProvince: "",
     });
   };
@@ -207,6 +229,19 @@ class ManageDoctor extends Component {
     return result;
   };
 
+  handleConvertSpecialtyToOptionsSelect = (data) => {
+    let result = [];
+    if (data?.length > 0) {
+      data.map((item) => {
+        return result.push({
+          label: item.name,
+          value: item.id,
+        });
+      });
+    }
+    return result;
+  };
+
   handleEditorChange = ({ html, text }) => {
     this.setState({
       contentMarkdown: text,
@@ -229,6 +264,8 @@ class ManageDoctor extends Component {
       selectedPrice: this.state.selectedPrice.value,
       selectedMethod: this.state.selectedMethod.value,
       selectedProvince: this.state.selectedProvince.value,
+      specialtyId: this.state.selectedSpecialty.value,
+      clinicId: this.state?.selectedClinic.value ?? "",
       nameClinic: this.state.nameClinic,
       addressClinic: this.state.addressClinic,
       note: this.state.note,
@@ -241,9 +278,13 @@ class ManageDoctor extends Component {
       listPrice,
       listMethodPayment,
       listProvince,
+      listClinic,
+      listSpecialty,
       isSaveInfo,
       selectedPrice,
       selectedMethod,
+      selectedClinic,
+      selectedSpecialty,
       selectedProvince,
       addressClinic,
       nameClinic,
@@ -272,7 +313,7 @@ class ManageDoctor extends Component {
                   }
                 />
               </div>
-              <div className="content-right w-60">
+              <div className="content-right">
                 <label className="fs-5 text-secondary">
                   <FormattedMessage id="admin.manage_doctor.intro" />
                 </label>
@@ -397,6 +438,40 @@ class ManageDoctor extends Component {
                 </FormattedMessage>
               </div>
             </div>
+            <div className="d-flex gap-3 mb-3">
+              <div className="content-left">
+                <label className="fs-5 text-secondary">
+                  <FormattedMessage id="admin.manage_doctor.choose_specialty" />
+                </label>
+                <Select
+                  value={selectedSpecialty}
+                  onChange={(selectedSpecialty) =>
+                    this.setState({ selectedSpecialty })
+                  }
+                  options={listSpecialty}
+                  isClearable={true}
+                  placeholder={
+                    <FormattedMessage id="admin.manage_doctor.choose_specialty" />
+                  }
+                />
+              </div>
+              <div className="content-left">
+                <label className="fs-5 text-secondary">
+                  <FormattedMessage id="admin.manage_doctor.choose_clinic" />
+                </label>
+                <Select
+                  value={selectedClinic}
+                  onChange={(selectedClinic) =>
+                    this.setState({ selectedClinic })
+                  }
+                  options={listClinic}
+                  isClearable={true}
+                  placeholder={
+                    <FormattedMessage id="admin.manage_doctor.choose_clinic" />
+                  }
+                />
+              </div>
+            </div>
           </div>
           <MdEditor
             style={{ height: "500px" }}
@@ -426,6 +501,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     allDoctors: state.admin.allDoctors,
+    allSpecialty: state.admin.allSpecialty,
     price: state.admin.price,
     methodPayment: state.admin.methodPayment,
     province: state.admin.province,
@@ -442,6 +518,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchAllDoctorStart: (id) => dispatch(fetchAllDoctorStart()),
     saveDetailDoctorStart: (data) => dispatch(saveDetailDoctorStart(data)),
     getDetailDoctorStart: (id) => dispatch(getDetailDoctorStart(id)),
+    getAllSpecialtyStart: () => dispatch(getAllSpecialtyStart()),
   };
 };
 

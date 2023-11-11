@@ -103,7 +103,9 @@
   },
   "homepage": {
     "out-standing-doctor": "Bác sĩ nổi bật tuần qua",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "see_more": "Xem thêm",
+    "popular_specialties": "Chuyên khoa phổ biến"
   },
   "manage-schedule": {
     "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
@@ -125,6 +127,20 @@
       "show_detail": "Xem chi tiết",
       "hide_price_list": "Ẩn bảng giá",
       "method_payment": "Phòng khám có thanh toán bằng hình thức"
+    },
+    "booking_modal": {
+      "title": "Thông tin đặt lịch khám bệnh",
+      "full_name": "Họ và tên",
+      "phone_number": "Số điện thoại",
+      "address": "Địa chỉ liên hệ",
+      "email": "Địa chỉ Email",
+      "reason": "Lý do khám",
+      "birth_day": "Ngày sinh",
+      "sex": "Giới tính",
+      "comfirm": "Xác nhận",
+      "cancel": "Hủy",
+      "free_booking": "Miễn phí đặt lịch",
+      "price_examination": "Giá khám"
     }
   },
   "admin": {
@@ -137,9 +153,24 @@
       "choose_price": "Chọn giá",
       "choose_method": "Chọn phương thức thanh toán",
       "choose_province": "Chọn tỉnh thành",
+      "choose_specialty": "Chọn chuyên khoa",
+      "choose_clinic": "Chọn phòng khám",
       "name_clinic": "Tên phòng khám",
       "address_clinic": "Địa chỉ phòng khám",
       "note": "Ghi chú"
+    },
+    "manage_specialty": {
+      "title": "Quản lý chuyên khoa",
+      "name_specialty": "Tên chuyên khoa",
+      "image_specialty": "Ảnh chuyên khoa",
+      "add": "Tạo chuyên khoa"
+    },
+    "manage_clinic": {
+      "title": "Quản lý phòng khám",
+      "name_clinic": "Tên phòng khám",
+      "address_clinic": "Địa chỉ phòng khám",
+      "image_clinic": "Ảnh phòng khám",
+      "add": "Tạo phòng khám"
     }
   }
 }

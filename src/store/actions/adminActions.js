@@ -12,6 +12,8 @@ import {
   saveBulkSchedule,
   getScheduleDoctorByDate,
   getExtraInfoDoctorByIdService,
+  bookAppointmentService,
+  getAllSpecialtyService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -316,13 +318,10 @@ export const saveDetailDoctorStart = (data) => {
       let res = await saveDetailDoctorService(data);
       if (res.status === 200) {
         toast.success(res.message);
-      } else {
-        toast.error(res.message);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
       dispatch(saveDetailDoctorFailed(error));
-      // toast.error(error.response.data.message);
     }
   };
 };
@@ -475,5 +474,57 @@ export const getExtraInfoDoctorByIdSuccess = (payload) => ({
 
 export const getExtraInfoDoctorByIdFailed = (payload) => ({
   type: actionTypes.GET_EXTRA_INFO_DOCTOR_BY_ID_FAIL,
+  payload,
+});
+
+//book an appointment with
+export const bookAppointmentStart = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_START });
+      let res = await bookAppointmentService(id);
+      if (res.status === 200) {
+        dispatch(bookAppointmentSuccess(res));
+        toast.success(res.message);
+      }
+    } catch (error) {
+      dispatch(bookAppointmentFailed(error));
+      toast.error(error.response.data.message);
+    }
+  };
+};
+
+export const bookAppointmentSuccess = (payload) => ({
+  type: actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_SUCCESS,
+  payload,
+});
+
+export const bookAppointmentFailed = (payload) => ({
+  type: actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_FAIL,
+  payload,
+});
+
+//get all specialty
+export const getAllSpecialtyStart = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.GET_ALL_SPECIALTY_START });
+      let res = await getAllSpecialtyService();
+      if (res.status === 200) {
+        dispatch(getAllSpecialtySuccess(res));
+      }
+    } catch (error) {
+      dispatch(getAllSpecialtyFailed(error));
+    }
+  };
+};
+
+export const getAllSpecialtySuccess = (payload) => ({
+  type: actionTypes.GET_ALL_SPECIALTY_SUCCESS,
+  payload,
+});
+
+export const getAllSpecialtyFailed = (payload) => ({
+  type: actionTypes.GET_ALL_SPECIALTY_FAIL,
   payload,
 });
