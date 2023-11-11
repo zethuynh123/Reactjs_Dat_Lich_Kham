@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getExtraInfoDoctorByIdStart } from "../../../store/actions/adminActions";
+import { getDetailDoctorService } from "../../../services/userService";
 import NumberFormat from "react-number-format";
 import { FormattedMessage } from "react-intl";
 import "./ProfileDoctor.scss";
 import { LANGUAGES } from "../../../utils";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 class ProfileDoctor extends Component {
@@ -15,20 +17,6 @@ class ProfileDoctor extends Component {
       doctorProfile: [],
     };
   }
-
-  // componentWillReceiveProps(nextProps, prevState) {
-  //     const { location, setAccountMenuPath, setSettingMenuPath } = this.props;
-  //     const { location: nextLocation } = nextProps;
-  //     if (location !== nextLocation) {
-  //         let pathname = nextLocation && nextLocation.pathname;
-  //         if ((pathname.startsWith('/account/') || pathname.startsWith('/fds/account/'))) {
-  //             setAccountMenuPath(pathname);
-  //         }
-  //         if (pathname.startsWith('/settings/')) {
-  //             setSettingMenuPath(pathname);
-  //         };
-  //     };
-  // };
 
   renderTimeBooking = (dataTime) => {
     const { language } = this.props;
@@ -46,12 +34,15 @@ class ProfileDoctor extends Component {
               .unix(Number(dataTime.date) / 1000)
               .locale("en")
               .format("dddd - MM/DD/YYYY");
+
       return (
         <>
           <div className="text-capitalize">
             {time} - {date}
           </div>
-          <div>Miễn phí đặt lịch</div>
+          <div>
+            <FormattedMessage id="patient.booking_modal.free_booking" />
+          </div>
         </>
       );
     }
@@ -59,30 +50,50 @@ class ProfileDoctor extends Component {
   };
 
   async componentDidMount() {
-    const { detailInfoDoctors } = this.props;
+    const { detailInfoDoctors, doctorId } = this.props;
+
     if (detailInfoDoctors) {
       this.setState({ doctorProfile: detailInfoDoctors });
     }
+
+    if (doctorId) {
+      let result = await getDetailDoctorService(doctorId);
+      if (result.status === 200) {
+        this.setState({ doctorProfile: result.data });
+      }
+    }
   }
 
-  componentDidUpdate(prevProps) {
-    const { language, detailInfoDoctors } = this.props;
+  async componentDidUpdate(prevProps) {
+    const { doctorId } = this.props;
 
-    // if (prevProps.detailInfoDoctors !== detailInfoDoctors) {
-    //   this.setState({ doctorProfile: detailInfoDoctors });
-    // }
+    if (prevProps.doctorId !== doctorId) {
+      let result = await getDetailDoctorService(doctorId);
+      if (result.status === 200) {
+        this.setState({ doctorProfile: result.data });
+      }
+    }
   }
 
   render() {
     const { doctorProfile } = this.state;
-    const { language, isShowDescription, dataTime } = this.props;
-    console.log("doctorProfile", doctorProfile, dataTime);
+    const {
+      language,
+      isShowDescription,
+      dataTime,
+      isShowDetailDoctor,
+      isShowPrice,
+      doctorId,
+    } = this.props;
     let nameVi = "",
       nameEn = "";
 
     if (doctorProfile && doctorProfile.positionData) {
       nameVi = `${doctorProfile.positionData.valueVi}, ${doctorProfile.lastName} ${doctorProfile.firstName}`;
       nameEn = `${doctorProfile.positionData.valueEn}, ${doctorProfile.firstName} ${doctorProfile.lastName}`;
+      // language === LANGUAGES.VI
+      //   ? this.props.handlePassDoctorName(nameVi)
+      //   : this.props.handlePassDoctorName(nameEn);
     }
     return (
       <>
@@ -110,24 +121,31 @@ class ProfileDoctor extends Component {
             </div>
           </div>
         </div>
-        <div className="examination-price">
-          Giá khám:{" "}
-          {language === LANGUAGES.VI ? (
-            <NumberFormat
-              value={doctorProfile?.Doctor_Infor?.priceTypeData?.valueVi}
-              displayType={"text"}
-              thousandSeparator={true}
-              suffix={"vnđ"}
-            />
-          ) : (
-            <NumberFormat
-              value={doctorProfile?.Doctor_Infor?.priceTypeData?.valueEn}
-              displayType={"text"}
-              thousandSeparator={true}
-              suffix={"$"}
-            />
-          )}
-        </div>
+        {isShowDetailDoctor && (
+          <div>
+            <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+          </div>
+        )}
+        {isShowPrice && (
+          <div className="examination-price">
+            <FormattedMessage id="patient.booking_modal.price_examination" />:{" "}
+            {language === LANGUAGES.VI ? (
+              <NumberFormat
+                value={doctorProfile?.Doctor_Infor?.priceTypeData?.valueVi}
+                displayType={"text"}
+                thousandSeparator={true}
+                suffix={"vnđ"}
+              />
+            ) : (
+              <NumberFormat
+                value={doctorProfile?.Doctor_Infor?.priceTypeData?.valueEn}
+                displayType={"text"}
+                thousandSeparator={true}
+                suffix={"$"}
+              />
+            )}
+          </div>
+        )}
       </>
     );
   }

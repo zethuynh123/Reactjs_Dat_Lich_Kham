@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getExtraInfoDoctorByIdStart } from "../../../store/actions/adminActions";
 import "./DoctorExtraInfo.scss";
 import { LANGUAGES, CommonUtils } from "../../../utils";
 import NumberFormat from "react-number-format";
 import { FormattedMessage } from "react-intl";
+import { getExtraInfoDoctorByIdService } from "../../../services/userService";
 
 class DoctorExtraInfo extends Component {
   constructor(props) {
@@ -16,19 +16,22 @@ class DoctorExtraInfo extends Component {
   }
 
   async componentDidMount() {
-    const { doctorId, getExtraInfoDoctorByIdStart } = this.props;
+    const { doctorId } = this.props;
     if (doctorId) {
-      await getExtraInfoDoctorByIdStart(doctorId);
+      let result = await getExtraInfoDoctorByIdService(doctorId);
+      if (result.status === 200) {
+        this.setState({ extraInfoDoctor: result.data });
+      }
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { language, InfoDoctorById } = this.props;
-
-    if (prevProps.language !== language) {
-    }
-    if (prevProps.InfoDoctorById !== InfoDoctorById) {
-      this.setState({ extraInfoDoctor: InfoDoctorById });
+  async componentDidUpdate(prevProps) {
+    const { doctorId } = this.props;
+    if (prevProps.doctorId !== doctorId) {
+      let result = await getExtraInfoDoctorByIdService(doctorId);
+      if (result.status === 200) {
+        this.setState({ extraInfoDoctor: result.data });
+      }
     }
   }
 
@@ -36,7 +39,7 @@ class DoctorExtraInfo extends Component {
     const { isShowDetail, extraInfoDoctor } = this.state;
     const { language } = this.props;
     return (
-      <div className="extra-info-container ps-4 pb-4">
+      <div className="extra-info-container">
         <div className="content-up">
           <div className="address-title text-uppercase fw-bold">
             <FormattedMessage id="patient.extra_info_doctor.text_address" />
@@ -49,12 +52,12 @@ class DoctorExtraInfo extends Component {
         <div className="content-down">
           {isShowDetail ? (
             <>
-              <div className="price-exam text-uppercase fw-bold py-3">
+              <div className="price-exam text-uppercase fw-bold pt-2 pb-3">
                 <FormattedMessage id="patient.extra_info_doctor.price_examination" />
                 :
               </div>
               <div className=" border border-2 mb-2">
-                <div className="price-wrapper px-1 py-2 border-bottom">
+                <div className="price-wrapper px-1 py-2">
                   <div
                     className=" d-flex justify-content-between flex-column fs-5"
                     style={{ lineHeight: "15px" }}
@@ -106,7 +109,7 @@ class DoctorExtraInfo extends Component {
               </span>
             </>
           ) : (
-            <div className="py-3 border-bottom">
+            <div className="pt-2 pb-3">
               <span className="price-exam text-uppercase fw-bold">
                 <FormattedMessage id="patient.extra_info_doctor.price_examination" />
                 :
@@ -143,15 +146,11 @@ class DoctorExtraInfo extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    InfoDoctorById: state.admin.InfoDoctorById,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    getExtraInfoDoctorByIdStart: (id) =>
-      dispatch(getExtraInfoDoctorByIdStart(id)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorExtraInfo);

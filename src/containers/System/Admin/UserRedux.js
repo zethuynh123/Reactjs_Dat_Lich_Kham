@@ -273,7 +273,7 @@ class UserRedux extends Component {
       position,
       roleId,
     } = this.state;
-    const { language, dataAddUser } = this.props;
+    const { language } = this.props;
     return (
       <div className="user-redux-container">
         <div className="title">
@@ -529,7 +529,7 @@ class UserRedux extends Component {
                             onClick={this.handleDeleteImage}
                           >
                             {" "}
-                            <i class="fas fa-times"></i>
+                            <i className="fas fa-times"></i>
                           </span>
                         ) : null}
                       </div>

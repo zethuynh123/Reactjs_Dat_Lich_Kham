@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  getDetailDoctorStart,
-  getScheduleDoctorByDateStart,
-} from "../../../store/actions/adminActions";
+import { getScheduleDoctorByDate } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import localization from "moment/locale/vi";
 import "./DoctorSchedule.scss";
@@ -43,10 +40,15 @@ class DoctorSchedule extends Component {
   };
 
   handleChangeSelect = async (e) => {
-    const { getScheduleDoctorByDateStart, doctorId } = this.props;
+    const { doctorId } = this.props;
 
     if (doctorId) {
-      await getScheduleDoctorByDateStart(doctorId, e.target.value);
+      let result = await getScheduleDoctorByDate(doctorId, e.target.value);
+      if (result.status === 200) {
+        this.setState({ allAvailableTime: result?.data });
+      } else {
+        console.error(result?.message);
+      }
     }
   };
 
@@ -59,33 +61,34 @@ class DoctorSchedule extends Component {
   };
 
   async componentDidMount() {
-    const { getScheduleDoctorByDateStart, doctorId } = this.props;
+    const { doctorId } = this.props;
     let allDays = this.handleSetArrDays();
     if (allDays?.length > 0) {
-      await getScheduleDoctorByDateStart(doctorId, allDays[0]?.value);
-      this.setState({ allDays });
+      let result = await getScheduleDoctorByDate(doctorId, allDays[0]?.value);
+      this.setState({ allDays, allAvailableTime: result?.data });
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { language, ScheduleByDate } = this.props;
+  async componentDidUpdate(prevProps) {
+    const { language, doctorId } = this.props;
 
     if (prevProps.language !== language) {
       let allDays = this.handleSetArrDays();
       this.setState({ allDays });
     }
-    if (prevProps.ScheduleByDate !== ScheduleByDate) {
-      if (ScheduleByDate.status === 200) {
-        this.setState({ allAvailableTime: ScheduleByDate.data });
-      } else {
-        console.error(ScheduleByDate.message);
+
+    if (prevProps.doctorId !== doctorId) {
+      let allDays = this.handleSetArrDays();
+      if (allDays?.length > 0) {
+        let result = await getScheduleDoctorByDate(doctorId, allDays[0]?.value);
+        this.setState({ allDays, allAvailableTime: result?.data });
       }
     }
   }
 
   render() {
     const { allDays, allAvailableTime, dataModal } = this.state;
-    const { language, detailInfoDoctors } = this.props;
+    const { language, detailInfoDoctors, doctorId } = this.props;
     return (
       <>
         <BookingModal
@@ -93,6 +96,7 @@ class DoctorSchedule extends Component {
           toggle={() => this.toggle()}
           dataModal={dataModal}
           detailInfoDoctors={detailInfoDoctors}
+          doctorId={doctorId && doctorId}
         />
         <div className="doctor-schedule-container">
           <div className="all-schedule">
@@ -180,16 +184,11 @@ class DoctorSchedule extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    ScheduleByDate: state.admin.ScheduleByDate,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    getDetailDoctorStart: (id) => dispatch(getDetailDoctorStart(id)),
-    getScheduleDoctorByDateStart: (doctorId, date) =>
-      dispatch(getScheduleDoctorByDateStart(doctorId, date)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule);

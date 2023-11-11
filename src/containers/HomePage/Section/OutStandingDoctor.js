@@ -20,7 +20,10 @@ class OutStandingDoctor extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.topDoctors !== this.props.topDoctors) {
-      this.setState({ topDoctors: this.props.topDoctors });
+      let topDoctors = this.props.topDoctors.filter(
+        (item) => item.image !== null
+      );
+      this.setState({ topDoctors });
     }
   }
 
@@ -47,8 +50,7 @@ class OutStandingDoctor extends Component {
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>
-              {topDoctors &&
-                topDoctors.length > 0 &&
+              {topDoctors?.length > 0 &&
                 topDoctors.map((doctor, index) => {
                   let imageBase64 = "";
                   if (doctor.image) {

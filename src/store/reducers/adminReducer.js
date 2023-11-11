@@ -14,9 +14,11 @@ const initialState = {
   methodPayment: [],
   province: [],
   InfoDoctorById: [],
+  allSpecialty: [],
   dataAddUser: null,
   saveInfoDoctor: null,
   saveScheduleHours: null,
+  bookAppointment: null,
   isLoadingGenders: false,
   isLoadingPositions: false,
   isLoadingRoles: false,
@@ -234,6 +236,36 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         InfoDoctorById: [],
+      };
+    case actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_START:
+      return {
+        ...state,
+      };
+    case actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_SUCCESS:
+      return {
+        ...state,
+        bookAppointment: action.payload,
+      };
+
+    case actionTypes.BOOK_APPOINTMENT_WITH_DOCTOR_FAIL:
+      return {
+        ...state,
+        bookAppointment: null,
+      };
+    case actionTypes.GET_ALL_SPECIALTY_START:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_ALL_SPECIALTY_SUCCESS:
+      return {
+        ...state,
+        allSpecialty: action.payload.data,
+      };
+
+    case actionTypes.GET_ALL_SPECIALTY_FAIL:
+      return {
+        ...state,
+        allSpecialty: [],
       };
     default:
       return state;
