@@ -4,6 +4,7 @@ import {
   fetchGenderStart,
   getExtraInfoDoctorByIdStart,
   bookAppointmentStart,
+  getDetailDoctorStart,
 } from "../../../../store/actions/adminActions";
 import NumberFormat from "react-number-format";
 import { FormattedMessage } from "react-intl";
@@ -103,20 +104,25 @@ class BookingModal extends Component {
   };
 
   handleBookAppointment = async () => {
-    await this.props.bookAppointmentStart({
+    let result = await this.props.bookAppointmentStart({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
       address: this.state.address,
       reason: this.state.reason,
-      date: new Date(this.state.birthDay).getTime(),
+      birthDay: new Date(this.state.birthDay).getTime(),
+      date: this.props.dataModal.date,
       selectedGender: this.state.selectedGender.value,
       doctorId: this.state.doctorId,
       timeType: this.state.timeType,
       language: this.props.language,
       timeString: this.renderTimeBooking(this.props.dataModal),
-      doctorName: this.renderDoctorName(this.props.detailInfoDoctors),
+      doctorName: this.renderDoctorName(this.props.DetailInfoDoctors),
     });
+
+    if (result.status === 200) {
+      this.toggle();
+    }
     this.setState({ isLoading: false });
   };
 
@@ -195,7 +201,7 @@ class BookingModal extends Component {
     return;
   };
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     const { language, genders, dataModal, bookAppointment } = this.props;
 
     if (prevProps.genders !== genders || prevProps.language !== language) {
@@ -209,17 +215,12 @@ class BookingModal extends Component {
 
     if (prevProps.dataModal !== dataModal) {
       if (dataModal && !_.isEmpty(dataModal)) {
+        await this.props.getDetailDoctorStart(dataModal.doctorId);
         this.setState({
           doctorId: dataModal.doctorId,
           timeType: dataModal.timeType,
         });
       }
-    }
-    if (prevProps.bookAppointment !== bookAppointment) {
-      if (bookAppointment?.status === 200) {
-        this.toggle();
-      }
-      return;
     }
   }
 
@@ -235,7 +236,7 @@ class BookingModal extends Component {
       selectedGender,
       isLoading,
     } = this.state;
-    const { language, detailInfoDoctors, dataModal, doctorId } = this.props;
+    const { DetailInfoDoctors, dataModal, doctorId } = this.props;
     return (
       <Modal
         isOpen={this.props.modal}
@@ -257,7 +258,7 @@ class BookingModal extends Component {
           <div className="container">
             <div className="doctor-info">
               <ProfileDoctor
-                detailInfoDoctors={detailInfoDoctors && detailInfoDoctors}
+                detailInfoDoctors={DetailInfoDoctors && DetailInfoDoctors}
                 dataTime={dataModal && dataModal}
                 isShowDescription={false}
                 isShowDetailDoctor={false}
@@ -491,6 +492,7 @@ const mapStateToProps = (state) => {
     language: state.app.language,
     genders: state.admin.genders,
     bookAppointment: state.admin.bookAppointment,
+    DetailInfoDoctors: state.admin.DetailInfoDoctors,
   };
 };
 
@@ -500,6 +502,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getExtraInfoDoctorByIdStart(id)),
     fetchGenderStart: () => dispatch(fetchGenderStart()),
     bookAppointmentStart: (data) => dispatch(bookAppointmentStart(data)),
+    getDetailDoctorStart: (id) => dispatch(getDetailDoctorStart(id)),
   };
 };
 

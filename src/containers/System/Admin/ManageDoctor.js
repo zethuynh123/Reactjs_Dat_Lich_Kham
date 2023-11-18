@@ -12,6 +12,7 @@ import {
   getDetailDoctorStart,
   fetchAllCodeStart,
   getAllSpecialtyStart,
+  getAllClinicStart,
 } from "../../../store/actions/adminActions";
 import "react-toastify/dist/ReactToastify.css";
 import MarkdownIt from "markdown-it";
@@ -57,6 +58,7 @@ class ManageDoctor extends Component {
     this.props.fetchAllCodeStart("PROVINCE");
     this.props.fetchAllCodeStart("PAYMENT");
     this.props.getAllSpecialtyStart();
+    this.props.getAllClinicStart();
   }
 
   componentDidUpdate(prevProps) {
@@ -115,6 +117,14 @@ class ManageDoctor extends Component {
         this.setState({ listSpecialty });
       }
     }
+    if (prevProps.allClinic !== this.props.allClinic) {
+      let listClinic = this.handleConvertSpecialtyToOptionsSelect(
+        this.props.allClinic
+      );
+      if (listClinic && listClinic.length > 0) {
+        this.setState({ listClinic });
+      }
+    }
 
     if (prevProps.saveInfoDoctor !== this.props.saveInfoDoctor) {
       if (this.props.saveInfoDoctor.status === 200) {
@@ -125,34 +135,51 @@ class ManageDoctor extends Component {
       prevProps.DetailInfoDoctors !== this.props.DetailInfoDoctors ||
       prevProps.language !== this.props.language
     ) {
-      const { listProvince, listPrice, listMethodPayment, listSpecialty } =
-        this.state;
+      const {
+        listProvince,
+        listPrice,
+        listMethodPayment,
+        listSpecialty,
+        listClinic,
+      } = this.state;
       if (this.props.DetailInfoDoctors.Markdown) {
         if (this.props.DetailInfoDoctors.Doctor_Infor) {
           this.setState({
-            selectedPrice: listPrice.find(
-              (item) =>
-                item.value === this.props.DetailInfoDoctors.Doctor_Infor.priceId
-            ),
-            selectedMethod: listMethodPayment.find(
-              (item) =>
-                item.value ===
-                this.props.DetailInfoDoctors.Doctor_Infor.paymentId
-            ),
-            selectedProvince: listProvince.find(
-              (item) =>
-                item.value ===
-                this.props.DetailInfoDoctors.Doctor_Infor.provinceId
-            ),
-            selectedSpecialty: listSpecialty.find(
-              (item) =>
-                item.value ===
-                this.props.DetailInfoDoctors.Doctor_Infor.specialtyId
-            ),
-            nameClinic: this.props.DetailInfoDoctors.Doctor_Infor.nameClinic,
+            selectedPrice:
+              listPrice.find(
+                (item) =>
+                  item.value ===
+                  this.props.DetailInfoDoctors.Doctor_Infor.priceId
+              ) ?? "",
+            selectedMethod:
+              listMethodPayment.find(
+                (item) =>
+                  item.value ===
+                  this.props.DetailInfoDoctors.Doctor_Infor.paymentId
+              ) ?? "",
+            selectedProvince:
+              listProvince.find(
+                (item) =>
+                  item.value ===
+                  this.props.DetailInfoDoctors.Doctor_Infor.provinceId
+              ) ?? "",
+            selectedSpecialty:
+              listSpecialty.find(
+                (item) =>
+                  item.value ===
+                  this.props.DetailInfoDoctors.Doctor_Infor.specialtyId
+              ) ?? "",
+            selectedClinic:
+              listClinic.find(
+                (item) =>
+                  item.value ===
+                  this.props.DetailInfoDoctors.Doctor_Infor.clinicId
+              ) ?? "",
+            nameClinic:
+              this.props.DetailInfoDoctors.Doctor_Infor.nameClinic ?? "",
             addressClinic:
-              this.props.DetailInfoDoctors.Doctor_Infor.addressClinic,
-            note: this.props.DetailInfoDoctors.Doctor_Infor.note,
+              this.props.DetailInfoDoctors.Doctor_Infor.addressClinic ?? "",
+            note: this.props.DetailInfoDoctors.Doctor_Infor.note ?? "",
           });
         } else {
           this.setState({
@@ -163,6 +190,7 @@ class ManageDoctor extends Component {
             selectedMethod: "",
             selectedProvince: "",
             selectedSpecialty: "",
+            selectedClinic: "",
           });
         }
         this.setState({
@@ -195,6 +223,7 @@ class ManageDoctor extends Component {
       selectedPrice: "",
       selectedMethod: "",
       selectedSpecialty: "",
+      selectedClinic: "",
       selectedProvince: "",
     });
   };
@@ -265,7 +294,7 @@ class ManageDoctor extends Component {
       selectedMethod: this.state.selectedMethod.value,
       selectedProvince: this.state.selectedProvince.value,
       specialtyId: this.state.selectedSpecialty.value,
-      clinicId: this.state?.selectedClinic.value ?? "",
+      clinicId: this.state.selectedClinic.value,
       nameClinic: this.state.nameClinic,
       addressClinic: this.state.addressClinic,
       note: this.state.note,
@@ -502,6 +531,7 @@ const mapStateToProps = (state) => {
     language: state.app.language,
     allDoctors: state.admin.allDoctors,
     allSpecialty: state.admin.allSpecialty,
+    allClinic: state.admin.allClinic,
     price: state.admin.price,
     methodPayment: state.admin.methodPayment,
     province: state.admin.province,
@@ -519,6 +549,7 @@ const mapDispatchToProps = (dispatch) => {
     saveDetailDoctorStart: (data) => dispatch(saveDetailDoctorStart(data)),
     getDetailDoctorStart: (id) => dispatch(getDetailDoctorStart(id)),
     getAllSpecialtyStart: () => dispatch(getAllSpecialtyStart()),
+    getAllClinicStart: () => dispatch(getAllClinicStart()),
   };
 };
 

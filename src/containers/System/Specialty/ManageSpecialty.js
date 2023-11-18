@@ -51,13 +51,6 @@ class ManageSpecialty extends Component {
   };
 
   handleSaveInfo = async () => {
-    console.log({
-      contentHTML: this.state.contentHTML,
-      contentMarkdown: this.state.contentMarkdown,
-      preImge: this.state.previewImg,
-      nameSpecialty: this.state.nameSpecialty,
-    });
-
     try {
       let result = await createNewSpecialty({
         contentHTML: this.state.contentHTML,

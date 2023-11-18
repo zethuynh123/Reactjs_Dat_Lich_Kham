@@ -82,7 +82,8 @@
     },
 
     "doctor": {
-      "manage-schedule": "Manage Doctor's schedule"
+      "manage-schedule": "Manage Doctor's schedule",
+      "manage-patient": "Managing Doctor's patient"
     }
   },
   "manage-user": {
@@ -153,8 +154,8 @@
       "choose_price": "Choose price",
       "choose_method": "Select a payment method",
       "choose_province": "Select a province",
-      "choose_clinic": "Select a specialties",
-      "choose_clinic": "Chọn phòng khám",
+      "choose_clinic": "Select a clinic",
+      "choose_specialty": "Select a specialties",
       "name_clinic": "Name of clinic",
       "address_clinic": "Address of clinic",
       "note": "Note"

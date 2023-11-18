@@ -1,111 +1,79 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getExtraInfoDoctorByIdStart } from "../../../store/actions/adminActions";
 import {
-  getDetailSpecialtyByIdService,
+  getDetailDoctorStart,
+  getExtraInfoDoctorByIdStart,
+} from "../../../store/actions/adminActions";
+import {
+  getDetailClinicByIdService,
   getAllCodeService,
 } from "../../../services/userService";
 import NumberFormat from "react-number-format";
 import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
 import DoctorSchedule from "../Doctor/DoctorSchedule";
-import "./DetailSpecialty.scss";
+import "./DetailClinic.scss";
 import DoctorExtraInfo from "../Doctor/DoctorExtraInfo";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
 import _ from "lodash";
 import { LANGUAGES } from "../../../utils";
 
-class DetailSpecialty extends Component {
+class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrDoctorId: [4, 49, 50],
-      detailSpecialty: {},
-      listProvince: [],
+      arrDoctorId: [],
+      detailClinic: {},
     };
   }
-
-  handleChangeProvince = async (e) => {
-    const { match } = this.props;
-    let result = await getDetailSpecialtyByIdService(
-      match?.params?.id,
-      e.target.value
-    );
-
-    if (result.status === 200) {
-      let arrDoctorId = [];
-      if (result?.data?.doctorInfoData?.length > 0) {
-        result.data.doctorInfoData.map((item) => {
-          return arrDoctorId.push(item.doctorId);
-        });
-      }
-      this.setState({
-        // detailSpecialty: result.data,
-        arrDoctorId,
-      });
-    }
-  };
 
   async componentDidMount() {
     const { match } = this.props;
 
     if (match?.params?.id) {
       let id = match.params.id;
-      let result = await getDetailSpecialtyByIdService(id, "ALL");
+      let result = await getDetailClinicByIdService(id);
 
       if (result.status === 200) {
         let arrDoctorId = [];
-        if (result?.data?.doctorInfoData?.length > 0) {
-          result.data.doctorInfoData.map((item) => {
+        if (result?.data?.doctorOnClinicData?.length > 0) {
+          result.data.doctorOnClinicData.map((item) => {
             return arrDoctorId.push(item.doctorId);
           });
         }
         this.setState({
-          detailSpecialty: result.data,
+          detailClinic: result.data,
           arrDoctorId,
         });
       }
     }
 
-    let result = await getAllCodeService("PROVINCE");
-    if (result.status === 200) {
-      this.setState({ listProvince: result.data });
-    }
+    // let result = await getAllCodeService("PROVINCE");
+    // if (result.status === 200) {
+    //   this.setState({ listProvince: result.data });
+    // }
   }
 
   render() {
-    const { arrDoctorId, detailSpecialty, listProvince } = this.state;
-    const { language } = this.props;
+    const { arrDoctorId, detailClinic } = this.state;
     return (
       <div className="detail-specialty-container">
         <HomeHeader />
         <div className="detail-specialty-body">
-          <div className="description-info-doctor">
-            {!_.isEmpty(detailSpecialty) && (
-              <div
-                // className="wrapper-info-doctor"
-                dangerouslySetInnerHTML={{
-                  __html: detailSpecialty.descriptionHTML,
-                }}
-              ></div>
+          <div className="description-info-doctor mb-5">
+            {!_.isEmpty(detailClinic) && (
+              <>
+                <div className="fs-4 fw-bold">{detailClinic.name}</div>
+                <div
+                  // className="wrapper-info-doctor"
+                  dangerouslySetInnerHTML={{
+                    __html: detailClinic.descriptionHTML,
+                  }}
+                ></div>
+              </>
             )}
           </div>
-          <div className="select-filter-doctor">
-            <select onChange={this.handleChangeProvince}>
-              <option value="ALL">
-                {language === LANGUAGES.VI ? "Tất cả" : "All"}
-              </option>
-              {listProvince?.length > 0 &&
-                listProvince.map((item, index) => {
-                  return (
-                    <option value={item.keyMap} key={index}>
-                      {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                    </option>
-                  );
-                })}
-            </select>
-            <i className="fas fa-chevron-down text"></i>
-          </div>
+
           {arrDoctorId?.length > 0 &&
             arrDoctorId.map((item, index) => {
               return (
@@ -143,6 +111,7 @@ class DetailSpecialty extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    DetailInfoDoctors: state.admin.DetailInfoDoctors,
   };
 };
 
@@ -153,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailClinic);

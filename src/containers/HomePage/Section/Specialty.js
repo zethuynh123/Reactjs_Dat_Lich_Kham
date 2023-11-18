@@ -33,7 +33,6 @@ class Specialty extends Component {
 
   render() {
     const { specialties } = this.state;
-    console.log(specialties);
     return (
       <div className="section-share section-specialty">
         <div className="section-container">
