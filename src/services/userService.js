@@ -123,13 +123,24 @@ const getAllClinicService = async () => {
   return result.data;
 };
 
-const getDetailClinicByIdService = async (id, location) => {
+const getDetailClinicByIdService = async (id) => {
   let result = await axios.get("/api/get-detail-clinic-by-id", {
-    params: { id, location },
+    params: { id },
   });
   return result.data;
 };
 
+const getListPatientForDoctorService = async (id, date) => {
+  let result = await axios.get("/api/get-list-patient-for-doctor", {
+    params: { id, date },
+  });
+  return result.data;
+};
+
+const sendRemedyService = async (data) => {
+  let result = await axios.post("/api/send-remedy", data);
+  return result.data;
+};
 export {
   handleLoginApi,
   getAllUser,
@@ -152,4 +163,6 @@ export {
   createNewClinic,
   getAllClinicService,
   getDetailClinicByIdService,
+  getListPatientForDoctorService,
+  sendRemedyService,
 };

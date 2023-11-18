@@ -87,12 +87,13 @@ class DoctorSchedule extends Component {
   }
 
   render() {
-    const { allDays, allAvailableTime, dataModal } = this.state;
+    const { allDays, allAvailableTime, dataModal, modalBooking } = this.state;
     const { language, detailInfoDoctors, doctorId } = this.props;
+
     return (
       <>
         <BookingModal
-          modal={this.state.modalBooking}
+          modal={modalBooking}
           toggle={() => this.toggle()}
           dataModal={dataModal}
           detailInfoDoctors={detailInfoDoctors}

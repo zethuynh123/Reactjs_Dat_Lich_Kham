@@ -15,6 +15,7 @@ const initialState = {
   province: [],
   InfoDoctorById: [],
   allSpecialty: [],
+  allClinic: [],
   dataAddUser: null,
   saveInfoDoctor: null,
   saveScheduleHours: null,
@@ -266,6 +267,21 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         allSpecialty: [],
+      };
+    case actionTypes.GET_ALL_CLINIC_START:
+      return {
+        ...state,
+      };
+    case actionTypes.GET_ALL_CLINIC_SUCCESS:
+      return {
+        ...state,
+        allClinic: action.payload.data,
+      };
+
+    case actionTypes.GET_ALL_CLINIC_FAIL:
+      return {
+        ...state,
+        allClinic: [],
       };
     default:
       return state;

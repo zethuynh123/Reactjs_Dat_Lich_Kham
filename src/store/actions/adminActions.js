@@ -14,6 +14,7 @@ import {
   getExtraInfoDoctorByIdService,
   bookAppointmentService,
   getAllSpecialtyService,
+  getAllClinicService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -486,6 +487,7 @@ export const bookAppointmentStart = (id) => {
       if (res.status === 200) {
         dispatch(bookAppointmentSuccess(res));
         toast.success(res.message);
+        return res;
       }
     } catch (error) {
       dispatch(bookAppointmentFailed(error));
@@ -526,5 +528,30 @@ export const getAllSpecialtySuccess = (payload) => ({
 
 export const getAllSpecialtyFailed = (payload) => ({
   type: actionTypes.GET_ALL_SPECIALTY_FAIL,
+  payload,
+});
+
+//get all clinic
+export const getAllClinicStart = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.GET_ALL_CLINIC_START });
+      let res = await getAllClinicService();
+      if (res.status === 200) {
+        dispatch(getAllClinicSuccess(res));
+      }
+    } catch (error) {
+      dispatch(getAllClinicFailed(error));
+    }
+  };
+};
+
+export const getAllClinicSuccess = (payload) => ({
+  type: actionTypes.GET_ALL_CLINIC_SUCCESS,
+  payload,
+});
+
+export const getAllClinicFailed = (payload) => ({
+  type: actionTypes.GET_ALL_CLINIC_FAIL,
   payload,
 });

@@ -53,14 +53,6 @@ class ManageClinic extends Component {
   };
 
   handleSaveInfo = async () => {
-    console.log({
-      contentHTML: this.state.contentHTML,
-      contentMarkdown: this.state.contentMarkdown,
-      preImge: this.state.previewImg,
-      nameClinic: this.state.nameClinic,
-      address: this.state.addressClinic,
-    });
-
     try {
       let result = await createNewClinic({
         contentHTML: this.state.contentHTML,
